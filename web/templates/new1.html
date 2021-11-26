@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="{{url_for('views.index1')}}" method="POST">
+        <input type="text" name="imie">
+        <input type="submit" value="Dodaj pacjenta">
+    </form>
+{% endblock %}

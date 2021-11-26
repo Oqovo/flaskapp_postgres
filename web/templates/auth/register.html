@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+    Rejestracja
+{% endblock %} 
+
+{% block content %}
+  <h1>Rejestracja</h1>
+  <form method="post">
+    <label for="name">Imię*</label>
+    <input name="name" id="name" required><br>
+    <label for="surname">Nazwisko*</label>
+    <input name="surname" id="surname" required><br>
+    <label for="pesel">PESEL*</label>
+    <input name="pesel" id="pesel" required><br>
+    <label for="birthdate">Data urodzenia</label>
+    <input name="birthdate" id="birthdate"><br>
+    <label for="phone">Numer telefonu*</label>
+    <input name="phone" id="phone" required><br>
+    <label for="username">Email*</label>
+    <input name="username" id="username" required><br>
+    <label for="password">Hasło*</label>
+    <input type="password" name="password" id="password" required><br>
+    <input type="submit" value="Utwórz nowe konto">
+  </form>
+{% endblock %}

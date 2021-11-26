@@ -1,0 +1,39 @@
+li {
+  font-size: 25px;
+}
+
+h1,
+p {
+  text-align: center;
+}
+
+body::after {
+  content: "";
+  background: url(https://upload.wikimedia.org/wikipedia/commons/6/61/Cars_movie%27s_car.jpg);
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.data:after {
+  content: "";
+  display: table;
+  clear: both;
+}

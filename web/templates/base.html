@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pingwinek - {% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>CRUD Time</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<nav>
+    <h1><a href="{{ url_for('views.index') }}">Pingwinek</a></h1>
+    <ul>
+      <li><a href="{{ url_for('views.index') }}">O nas</a>
+      <li><a href="{{ url_for('views.index') }}">Oferta</a>
+      <li><a href="{{ url_for('views.index') }}">Cennik</a>
+        
+      {% if g.user %}
+        <li><span>{{ g.user['username'] }}</span>
+        <li><a href="{{ url_for('views.account') }}">Moje konto</a>
+      {% else %}
+        <li><a href="{{ url_for('auth.login') }}">Logowanie</a>
+      {% endif %}
+    </ul>
+  </nav>
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
