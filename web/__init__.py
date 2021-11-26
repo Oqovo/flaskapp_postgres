@@ -12,6 +12,7 @@ from werkzeug.security import generate_password_hash
 from sqlalchemy.orm import lazyload, joinedload, subqueryload, selectinload, raiseload
 import random
 from flask_modus import Modus
+from datetime import datetime
 
 
 app = Flask(__name__, template_folder='templates')
@@ -62,7 +63,9 @@ db.session.add(Pacjent(imie='Pawel', pesel=89, data_rejestracji='05/02/2019', lo
 db.session.add(Pacjent(imie='Karolina', pesel=97, data_rejestracji='10/11/2017', login='karolina@example.com', haslo=generate_password_hash('xxx')))
 db.session.commit()
 
-
+db.session.add(Pracownik(imie='Anna', pesel=98, stanowisko='lekarz', data_zatrudnienia='10/10/2014', data_zwolnienia='10/10/2014', login='bd@example.com', haslo=generate_password_hash( 'xxx')))
+db.session.add(Wizyta(data='1988-01-17', godzina_rozpoczecia=datetime(2015, 6, 5, 8, 10, 10, 10),godzina_zakonczenia=datetime(2015, 6, 5, 8, 10, 10, 10), czy_sie_odbyla=0, dentysta=1, pacjent=1))
+db.session.commit()
 
 
 

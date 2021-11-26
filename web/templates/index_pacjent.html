@@ -10,5 +10,5 @@
         <li><a href="{{url_for('views.show_pacjent', id=c.id)}}"> {{ c.data }} {{ c.czy_sie_odbyla }}</a></li>
     {% endfor %}
     </ul>
-	<a href="{{url_for('views.new', p = c.pacjent)}}">Dodaj nową wizytę</a>
+	<a href="{{url_for('views.new')}}">Dodaj nową wizytę</a>
 {% endblock %}

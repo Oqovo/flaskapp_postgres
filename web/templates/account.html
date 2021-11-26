@@ -23,5 +23,6 @@
     <input type="submit" value="Edytuj">
   </form>
 
+  <a href="{{ url_for('views.index_pacjent') }}">Zobacz wszystkie wizyty</a><br>
   <a href="{{ url_for('auth.logout') }}">Wyloguj</a>
 {% endblock %}

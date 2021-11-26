@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    <h1>Dodaj nową wizytę</h1>
     <form action="{{url_for('views.index_pacjent')}}" method="POST">
     <label for="date">Data</label>
     <input name="date" id="date" required><br>

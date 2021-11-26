@@ -5,6 +5,8 @@ from flask_migrate import Migrate
 from sqlalchemy.orm import lazyload, joinedload, subqueryload, selectinload, raiseload
 import random
 from flask_modus import Modus
+from werkzeug.security import generate_password_hash
+from datetime import datetime
 
 from .models.pacjent import Pacjent
 from .models.pracownik import Pracownik
@@ -61,8 +63,9 @@ def index():
     #    
      #   db.session.add(Pacjent(imie=request.form['imie'], pesel = pacjent_pesel, data_rejestracji = '04/06/2028'))
       #  db.session.commit()
-       # return redirect(url_for('views.index'))
-   return render_template('index.html')#json.dumps([c.serialize() for c in db.session.query(Car).all()], indent=2)
+       # return redirect(url_for('views.index'))  
+
+    return render_template('index.html')#json.dumps([c.serialize() for c in db.session.query(Car).all()], indent=2)
 #https://pythonbasics.org/flask-rest-api/
 
 @views.route('/wizyty_pacj')
@@ -70,23 +73,48 @@ def index_pacjent():
     user = session.get("user_id")
     pacjent = db.session.query(Pacjent).filter(Pacjent.id == user ).first()
     print("****", pacjent)
-    return render_template('index_pacjent.html', wizyty = db.session.query(Wizyta).filter(Wizyta.pacjent == pacjent ).all())
+
+    if request.method == "POST":       
+        #db.session.add(Pacjent(imie=request.form['imie'], pesel = pacjent_pesel, data_rejestracji = '04/06/2028', login='anna@example.com', haslo=generate_password_hash('xxx')))
+        db.session.add(Wizyta(data='1988-01-17', godzina_rozpoczecia=datetime(2015, 6, 5, 8, 10, 10, 10),godzina_zakonczenia=datetime(2015, 6, 5, 8, 10, 10, 10), czy_sie_odbyla=0, dentysta=1, pacjent=pacjent.id))
+
+        db.session.commit()
+        return redirect(url_for('views.index_pacjent'))
+
+
+    return render_template('index_pacjent.html', wizyty = db.session.query(Wizyta).filter(Wizyta.pacjent == pacjent.id ).all())
 
 @views.route('/wizyty_prac')
 def index_pracownik():
     user = session.get("user_id")
     dentysta = db.session.query(Pracownik).filter(Pracownik.id == user ).first()
-    return render_template('index_pracownik.html', wizyty = db.session.query(Wizyta).filter(Wizyta.dentysta == dentysta ).all())
+    return render_template('index_pracownik.html', wizyty = db.session.query(Wizyta).filter(Wizyta.dentysta == dentysta.id ).all())
 
 @views.route('/wizyty_pacj/<int:id>')
+#tak naprawde to widok wizyty przez pacjenta
 def show_pacjent(id):
 
-    return render_template('show_pacjent.html', wizyty = db.session.query(Wizyta).filter(Wizyta.id == id ).first())
+    wizyta = db.session.query(Wizyta).filter(Wizyta.pacjent == id ).first()
+
+    if request.method == b"DELETE":
+        #found_car.delete(synchronize_session=False)
+        db.session.delete(wizyta)
+        db.session.commit()
+        return redirect(url_for('views.index_pacjent'))
+
+    return render_template('show_pacjent.html', c = wizyta)
 
 @views.route('/wizyty_prac/<int:id>')
 def show_pracownik(id):
 
-    return render_template('show_pacjent.html', wizyty = db.session.query(Wizyta).filter(Wizyta.id == id ).first())
+    wizyta = db.session.query(Wizyta).filter(Wizyta.pacjent == id ).first()
+
+    if request.method == b"PATCH":
+        db.session.query(Wizyta).filter(Wizyta.id == id).update({'data' : request.form['data']})
+        db.session.commit()
+        return redirect(url_for('views.index_pracownik'))
+
+    return render_template('show_pracownik.html', c = wizyta)
 
 @views.route('/wizyty_pacj/new')
 def new():
