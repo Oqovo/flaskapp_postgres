@@ -5,13 +5,13 @@ class Pracownik(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     pesel = db.Column(db.Integer, unique=True, nullable=False)
-    imie = db.Column(db.String(128), unique=True, nullable=False)
+    imie = db.Column(db.String(128), nullable=False)
 
-    stanowisko = db.Column(db.String(128), unique=True, nullable=False)
-    data_zatrudnienia = db.Column(db.Date, unique=True, nullable=False)
-    data_zwolnienia = db.Column(db.Date, unique=True, nullable=True)
+    stanowisko = db.Column(db.String(128),  nullable=False)
+    data_zatrudnienia = db.Column(db.Date, nullable=False)
+    data_zwolnienia = db.Column(db.Date,  nullable=True)
     login = db.Column(db.String(128), unique=True, nullable=False)
-    haslo = db.Column(db.String(128), unique=True, nullable=False)
+    haslo = db.Column(db.String(128),  nullable=False)
     
     wizyty = db.relationship("Wizyta")
     

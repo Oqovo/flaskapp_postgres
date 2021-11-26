@@ -40,7 +40,12 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = (
-            db.session.execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
+            db.session.query(Pacjent).filter(Pacjent.id == user_id).first()
+            #db.session.execute("SELECT * FROM pacjent WHERE id = ?", (user_id,)).fetchone()
+        )
+    if g.user is None:
+        g.user = (
+            db.session.query(Pracownik).filter(Pracownik.id == user_id).first()
         )
 
 
@@ -98,6 +103,7 @@ def register():
 @auth.route("/login", methods=("GET", "POST"))
 def login():
     """Log in a registered user by adding the user id to the session."""
+    print("*** Rozpoczynamy login")
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -109,21 +115,26 @@ def login():
         #).fetchone()
         doc = db.session.query(Pracownik).filter(Pracownik.login == username).first()
 
-        if user is None or doc is None:
+        print("*****", doc)
+        print("*****", user.login)
+        print("*****", user.haslo)
+
+
+        if (user is None) and (doc is None):
             error = "Niepoprawny login."
-        elif not check_password_hash(user[login], password) or not check_password_hash(doc[login], password):
+        elif (not check_password_hash(user.haslo, password)) and (not check_password_hash(doc.haslo, password)):
             error = "Niepoprawne hasło"
         
         if error is None:
             # store the user id in a new session and return to the index
             session.clear()
             if user is None:
-                session["user_id"] = doc["id"]
-                return redirect(url_for("index_pracownik"))
+                session["user_id"] = doc.id
+                return redirect(url_for("views.index_pracownik"))
             else:
-                session["user_id"] = user["id"]
-                return redirect(url_for("index_pacjent"))
-
+                session["user_id"] = user.id
+                return redirect(url_for("views.index_pacjent"))
+        print("******", error)
         flash(error)
 
     return render_template("auth/login.html")
@@ -133,4 +144,4 @@ def login():
 def logout():
     """Clear the current session, including the stored user id."""
     session.clear()
-    return redirect(url_for("index"))
+    return redirect(url_for("views.index"))

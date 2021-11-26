@@ -5,10 +5,10 @@ class Pacjent(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     pesel = db.Column(db.Integer, unique=True, nullable=False)
-    imie = db.Column(db.String(128), unique=True, nullable=False)
+    imie = db.Column(db.String(128), nullable=False)
     login = db.Column(db.String(128), unique=True, nullable=False)
-    haslo = db.Column(db.String(128), unique=True, nullable=False)
-    data_rejestracji = db.Column(db.Date, unique=True, nullable=False)
+    haslo = db.Column(db.String(128),  nullable=False)
+    data_rejestracji = db.Column(db.Date, nullable=False)
     
     wizyty = db.relationship("Wizyta")
     

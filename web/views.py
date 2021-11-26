@@ -16,6 +16,9 @@ from . import db
 
 views = Blueprint('views', __name__)
 
+#-----------------------------------------TUTAJ EXAMPLE
+# widoki i html z 1 są nieaktualne
+
 @views.route('/pacjenci/<int:id>', methods=["GET", "PATCH", "DELETE"])
 def show1(id):
     # find a toy based on its id
@@ -48,29 +51,32 @@ def edit1(id):
 def new1():
     return render_template('new1.html')   
     
+#---------------------------------------------------------------TUTAJ DOPIERO GIT :
+    
 @views.route('/', methods=['GET', 'POST'])
 def index():
   # for c in Car.query.all():   
-   if request.method == "POST":
-        pacjent_pesel = random.randint(100,200)
-        
-        db.session.add(Pacjent(imie=request.form['imie'], pesel = pacjent_pesel, data_rejestracji = '04/06/2028'))
-        db.session.commit()
-        return redirect(url_for('views.index'))
-   return render_template('index.html', pacjenci = db.session.query(Pacjent).all())#json.dumps([c.serialize() for c in db.session.query(Car).all()], indent=2)
+  # if request.method == "POST":
+   #     pacjent_pesel = random.randint(100,200)
+    #    
+     #   db.session.add(Pacjent(imie=request.form['imie'], pesel = pacjent_pesel, data_rejestracji = '04/06/2028'))
+      #  db.session.commit()
+       # return redirect(url_for('views.index'))
+   return render_template('index.html')#json.dumps([c.serialize() for c in db.session.query(Car).all()], indent=2)
 #https://pythonbasics.org/flask-rest-api/
 
 @views.route('/wizyty_pacj')
 def index_pacjent():
     user = session.get("user_id")
-
-    return render_template('index_pacjent.html', wizyty = db.session.query(Wizyta).filter(Wizyta.pacjent[id] == user ))
+    pacjent = db.session.query(Pacjent).filter(Pacjent.id == user ).first()
+    print("****", pacjent)
+    return render_template('index_pacjent.html', wizyty = db.session.query(Wizyta).filter(Wizyta.pacjent == pacjent ).all())
 
 @views.route('/wizyty_prac')
 def index_pracownik():
     user = session.get("user_id")
-
-    return render_template('index_pracownik.html', wizyty = db.session.query(Wizyta).filter(Wizyta.dentysta[id] == user ))
+    dentysta = db.session.query(Pracownik).filter(Pracownik.id == user ).first()
+    return render_template('index_pracownik.html', wizyty = db.session.query(Wizyta).filter(Wizyta.dentysta == dentysta ).all())
 
 @views.route('/wizyty_pacj/<int:id>')
 def show_pacjent(id):
@@ -83,7 +89,7 @@ def show_pracownik(id):
     return render_template('show_pacjent.html', wizyty = db.session.query(Wizyta).filter(Wizyta.id == id ).first())
 
 @views.route('/wizyty_pacj/new')
-def new1():
+def new():
     user = session.get("user_id")
 
     return render_template('new.html', p =  db.session.query(Pacjent).filter(Pacjent.id == user).first())   

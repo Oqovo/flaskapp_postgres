@@ -8,6 +8,7 @@
 from flask import Flask, jsonify, render_template, json, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from werkzeug.security import generate_password_hash
 from sqlalchemy.orm import lazyload, joinedload, subqueryload, selectinload, raiseload
 import random
 from flask_modus import Modus
@@ -56,9 +57,9 @@ db.session.commit()
 db.session.commit()
 
 
-db.session.add(Pacjent(imie='Anna', pesel=98, data_rejestracji='10/10/2014', login='anna@example.com', haslo='xxx'))
-db.session.add(Pacjent(imie='Pawel', pesel=89, data_rejestracji='05/02/2019', login='pawel@example.com', haslo='xxx'))
-db.session.add(Pacjent(imie='Karolina', pesel=97, data_rejestracji='10/11/2017', login='karolina@example.com', haslo='xxx'))
+db.session.add(Pacjent(imie='Anna', pesel=98, data_rejestracji='10/10/2014', login='anna@example.com', haslo=generate_password_hash('xxx')))
+db.session.add(Pacjent(imie='Pawel', pesel=89, data_rejestracji='05/02/2019', login='pawel@example.com', haslo=generate_password_hash('xxx')))
+db.session.add(Pacjent(imie='Karolina', pesel=97, data_rejestracji='10/11/2017', login='karolina@example.com', haslo=generate_password_hash('xxx')))
 db.session.commit()
 
 

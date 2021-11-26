@@ -9,7 +9,6 @@ p {
 
 body::after {
   content: "";
-  background: url(https://upload.wikimedia.org/wikipedia/commons/6/61/Cars_movie%27s_car.jpg);
   opacity: 0.3;
   top: 0;
   left: 0;

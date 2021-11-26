@@ -14,8 +14,7 @@
       <li><a href="{{ url_for('views.index') }}">Cennik</a>
         
       {% if g.user %}
-        <li><span>{{ g.user['username'] }}</span>
-        <li><a href="{{ url_for('views.account') }}">Moje konto</a>
+        <li><a href="{{ url_for('views.account') }}">Moje konto {{ g.user['username'] }}</a>
       {% else %}
         <li><a href="{{ url_for('auth.login') }}">Logowanie</a>
       {% endif %}
