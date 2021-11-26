@@ -122,8 +122,11 @@ def new():
 
     return render_template('new.html', p =  db.session.query(Pacjent).filter(Pacjent.id == user).first())   
 
+
+#TO DO - dodać rozróżnienie pacjenta i pracownika, np. za pomocą zmiennej u
 @views.route('/account')
-def account():
+def account(u):
     user = session.get("user_id")
+
 
     return render_template('account.html')

@@ -115,14 +115,12 @@ def login():
         #).fetchone()
         doc = db.session.query(Pracownik).filter(Pracownik.login == username).first()
 
-        print("*****", doc)
-        print("*****", user.login)
-        print("*****", user.haslo)
-
 
         if (user is None) and (doc is None):
             error = "Niepoprawny login."
-        elif (not check_password_hash(user.haslo, password)) and (not check_password_hash(doc.haslo, password)):
+        elif ((user is not None) and (not check_password_hash(user.haslo, password))):
+            error = "Niepoprawne hasło"
+        elif((doc is not None) and (not check_password_hash(doc.haslo, password))):
             error = "Niepoprawne hasło"
         
         if error is None:

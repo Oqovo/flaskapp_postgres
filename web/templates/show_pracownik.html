@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Wizyta #{{c.id}}}</h1>
+    <h1>Wizyta #{{c.id}}</h1>
     <p>
         Data: <b>{{c.data}}</b><br>
         Godzina: <b>{{c.godzina_rozpoczecia}}</b>
@@ -11,5 +11,5 @@
         <input type="submit" value="Edytuj">
     </form>
     <br>
-    <a href="{{url_for('views.index_pracownik')}}"></a>Zobacz wszystkie wizyty</a>
+    <a href="{{url_for('views.index_pracownik')}}">Zobacz wszystkie wizyty</a>
 {% endblock %}
