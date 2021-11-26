@@ -56,9 +56,9 @@ db.session.commit()
 db.session.commit()
 
 
-db.session.add(Pacjent(imie='Anna', pesel=98, data_rejestracji='10/10/2014'))
-db.session.add(Pacjent(imie='Pawel', pesel=89, data_rejestracji='05/02/2019'))
-db.session.add(Pacjent(imie='Karolina', pesel=97, data_rejestracji='10/11/2017'))
+db.session.add(Pacjent(imie='Anna', pesel=98, data_rejestracji='10/10/2014', login='anna@example.com', haslo='xxx'))
+db.session.add(Pacjent(imie='Pawel', pesel=89, data_rejestracji='05/02/2019', login='pawel@example.com', haslo='xxx'))
+db.session.add(Pacjent(imie='Karolina', pesel=97, data_rejestracji='10/11/2017', login='karolina@example.com', haslo='xxx'))
 db.session.commit()
 
 
