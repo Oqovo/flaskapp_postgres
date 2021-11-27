@@ -68,13 +68,14 @@ def index():
     return render_template('index.html')#json.dumps([c.serialize() for c in db.session.query(Car).all()], indent=2)
 #https://pythonbasics.org/flask-rest-api/
 
-@views.route('/wizyty_pacj')
+@views.route('/wizyty_pacj', methods=['GET', 'POST'])
 def index_pacjent():
     user = session.get("user_id")
     pacjent = db.session.query(Pacjent).filter(Pacjent.id == user ).first()
     print("****", pacjent)
 
-    if request.method == "POST":       
+    if request.method == "POST":  
+        #TO DO     
         #db.session.add(Pacjent(imie=request.form['imie'], pesel = pacjent_pesel, data_rejestracji = '04/06/2028', login='anna@example.com', haslo=generate_password_hash('xxx')))
         db.session.add(Wizyta(data='1988-01-17', godzina_rozpoczecia=datetime(2015, 6, 5, 8, 10, 10, 10),godzina_zakonczenia=datetime(2015, 6, 5, 8, 10, 10, 10), czy_sie_odbyla=0, dentysta=1, pacjent=pacjent.id))
 
@@ -90,11 +91,11 @@ def index_pracownik():
     dentysta = db.session.query(Pracownik).filter(Pracownik.id == user ).first()
     return render_template('index_pracownik.html', wizyty = db.session.query(Wizyta).filter(Wizyta.dentysta == dentysta.id ).all())
 
-@views.route('/wizyty_pacj/<int:id>')
+@views.route('/wizyty_pacj/<int:id>', methods=['GET', 'DELETE'])
 #tak naprawde to widok wizyty przez pacjenta
 def show_pacjent(id):
 
-    wizyta = db.session.query(Wizyta).filter(Wizyta.pacjent == id ).first()
+    wizyta = db.session.query(Wizyta).filter(Wizyta.id == id).first()
 
     if request.method == b"DELETE":
         #found_car.delete(synchronize_session=False)
@@ -104,10 +105,10 @@ def show_pacjent(id):
 
     return render_template('show_pacjent.html', c = wizyta)
 
-@views.route('/wizyty_prac/<int:id>')
+@views.route('/wizyty_prac/<int:id>', methods=['GET', 'PATCH'])
 def show_pracownik(id):
 
-    wizyta = db.session.query(Wizyta).filter(Wizyta.pacjent == id ).first()
+    wizyta = db.session.query(Wizyta).filter(Wizyta.id == id ).first()
 
     if request.method == b"PATCH":
         db.session.query(Wizyta).filter(Wizyta.id == id).update({'data' : request.form['data']})
@@ -125,8 +126,8 @@ def new():
 
 #TO DO - dodać rozróżnienie pacjenta i pracownika, np. za pomocą zmiennej u
 @views.route('/account')
-def account(u):
-    user = session.get("user_id")
+def account():
+    tablename = session.get("tablename")
 
 
-    return render_template('account.html')
+    return render_template('account.html', tablename = tablename)

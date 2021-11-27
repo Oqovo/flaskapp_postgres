@@ -23,10 +23,10 @@
     <input type="submit" value="Edytuj">
   </form>
 
-  {% if (user.__tablename__ == 'pacjenci') %}
+  {% if (tablename == 'pacjenci') %}
   <a href="{{ url_for('views.index_pacjent') }}">Zobacz wszystkie wizyty</a><br>
   {% else %}
-  <a href="{{ url_for('auth.index_pracownik') }}">ZObacz wszystkie wizyty</a>
+  <a href="{{ url_for('views.index_pracownik') }}">Zobacz wszystkie wizyty</a><br>
   {% endif %}
 
   <a href="{{ url_for('auth.logout') }}">Wyloguj</a>

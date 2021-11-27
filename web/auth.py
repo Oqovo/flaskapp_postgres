@@ -59,7 +59,7 @@ def register():
         name = request.form["name"]
         surname = request.form["surname"]
         pesel = request.form["pesel"]
-        birthdate = request.form["birthdate"]
+       # birthdate = request.form["birthdate"]
         phone = request.form["phone"]
         username = request.form["username"]
         password = request.form["password"]
@@ -72,7 +72,7 @@ def register():
         elif not name:
             error = "Imię wymagane."
         elif not surname:
-            error = "Nazisko wymagane."
+            error = "Nazwisko wymagane."
         elif not pesel:
             error = "PESEL wymagany."
         elif not phone:
@@ -83,7 +83,7 @@ def register():
             try:
                 db.session.add(Pacjent(imie=name, pesel=pesel, data_rejestracji=date.today(), login=username, haslo=generate_password_hash(password)))
                 #    db.session.execute(
-                #        "INSERT INTO user (username, password) VALUES (?, ?)",
+                #        "INSERT INTO Pacjent (username, password) VALUES (?, ?)",
                 #        (username, generate_password_hash(password)),
                 #    )
                 db.session.commit()
@@ -127,10 +127,14 @@ def login():
             # store the user id in a new session and return to the index
             session.clear()
             if user is None:
-                session["user_id"] = doc.id
+                session["user_id"] = doc.id 
+                session["tablename"] = doc.__tablename__
+                print(session)
                 return redirect(url_for("views.index_pracownik"))
             else:
                 session["user_id"] = user.id
+                session["tablename"] = user.__tablename__
+                print(session)
                 return redirect(url_for("views.index_pacjent"))
         print("******", error)
         flash(error)

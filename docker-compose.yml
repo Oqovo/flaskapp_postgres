@@ -23,5 +23,7 @@ services:
       - POSTGRES_USER=flaskapp
       - POSTGRES_PASSWORD=flaskapp
       - POSTGRES_DB=flaskapp_dev
+    ports:
+      - 5432:5432
 volumes:
   postgres_data:

@@ -7,7 +7,7 @@
 	<h1>Lista wizyt</h1>
     <ul>
     {% for c in wizyty %}
-        <li><a href="{{url_for('views.show_pacjent', id=c.id)}}"> {{ c.data }} {{ c.czy_sie_odbyla }}</a></li>
+        <li><a href="{{url_for('views.show_pacjent', id=c.id)}}"> #{{c.id}} {{ c.data }} {{ c.czy_sie_odbyla }}</a></li>
     {% endfor %}
     </ul>
 	<a href="{{url_for('views.new')}}">Dodaj nową wizytę</a>

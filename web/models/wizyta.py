@@ -4,10 +4,10 @@ class Wizyta(db.Model):
     __tablename__ = 'wizyty'
     
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.Date, unique=True, nullable=False)
-    godzina_rozpoczecia = db.Column(db.DateTime, unique=True, nullable=False)
-    godzina_zakonczenia = db.Column(db.DateTime, unique=True, nullable=False)
-    czy_sie_odbyla = db.Column(db.Boolean, unique=True, nullable=False)
+    data = db.Column(db.Date, nullable=False)
+    godzina_rozpoczecia = db.Column(db.DateTime, nullable=False)
+    godzina_zakonczenia = db.Column(db.DateTime, nullable=False)
+    czy_sie_odbyla = db.Column(db.Boolean, nullable=False)
     
     dentysta = db.Column(db.ForeignKey('pracownicy.id'), nullable=False)
     pacjent = db.Column(db.ForeignKey('pacjenci.id'), nullable=False)
