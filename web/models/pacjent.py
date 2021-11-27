@@ -6,9 +6,12 @@ class Pacjent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     pesel = db.Column(db.Integer, unique=True, nullable=False)
     imie = db.Column(db.String(128), nullable=False)
+    #Zapomniałam Dodać nazwisko = db.Column(db.String(128), nullable=False) 
     login = db.Column(db.String(128), unique=True, nullable=False)
     haslo = db.Column(db.String(128),  nullable=False)
     data_rejestracji = db.Column(db.Date, nullable=False)
+    #TO DO
+    #numer_telefonu = db.Column(db.Integer, unique=False, nullable=False)
     
     wizyty = db.relationship("Wizyta")
     

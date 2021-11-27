@@ -76,8 +76,12 @@ def index_pacjent():
 
     if request.method == "POST":  
         #TO DO     
-        #db.session.add(Pacjent(imie=request.form['imie'], pesel = pacjent_pesel, data_rejestracji = '04/06/2028', login='anna@example.com', haslo=generate_password_hash('xxx')))
-        db.session.add(Wizyta(data='1988-01-17', godzina_rozpoczecia=datetime(2015, 6, 5, 8, 10, 10, 10),godzina_zakonczenia=datetime(2015, 6, 5, 8, 10, 10, 10), czy_sie_odbyla=0, dentysta=1, pacjent=pacjent.id))
+        godzina_rozpoczecia = request.form["datetime"]
+        usluga = request.form["usluga"]
+        
+        print(godzina_rozpoczecia, usluga)
+        #datetime(2015, 6, 5, 8, 10, 10),
+        db.session.add(Wizyta(data='1988-01-17', godzina_rozpoczecia=godzina_rozpoczecia, godzina_zakonczenia=godzina_rozpoczecia + datetime.timedelta(minutes=30),  czy_sie_odbyla=0, dentysta=1, pacjent=pacjent.id))
 
         db.session.commit()
         return redirect(url_for('views.index_pacjent'))
@@ -128,6 +132,9 @@ def new():
 @views.route('/account')
 def account():
     tablename = session.get("tablename")
+    if tablename == "pacjenci":
+        user =  db.session.query(Pacjent).filter(Pacjent.id == session.get("user_id")).first()
+    else:
+        user =  db.session.query(Pracownik).filter(Pracownik.id == session.get("user_id")).first()
 
-
-    return render_template('account.html', tablename = tablename)
+    return render_template('account.html', tablename = tablename, user = user)

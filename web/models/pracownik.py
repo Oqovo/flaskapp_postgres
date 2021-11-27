@@ -6,7 +6,9 @@ class Pracownik(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     pesel = db.Column(db.Integer, unique=True, nullable=False)
     imie = db.Column(db.String(128), nullable=False)
-
+    #Zapomniałam Dodać nazwisko = db.Column(db.String(128), nullable=False) 
+    #TO DO
+    #numer_telefonu = db.Column(db.Integer, unique=False, nullable=False)
     stanowisko = db.Column(db.String(128),  nullable=False)
     data_zatrudnienia = db.Column(db.Date, nullable=False)
     data_zwolnienia = db.Column(db.Date,  nullable=True)

@@ -8,7 +8,7 @@
     <ul>
         Numer wizyty    Data i godzina      Dentysta    Status
     {% for c in wizyty %}
-        <li><a href="{{url_for('views.show_pacjent', id=c.id)}}"> #{{c.id}} {{ c.godzina_rozpoczecia }} {{c.dentysta.imie}} {{c.dentysta.nazwisko}} {%if ( c.czy_sie_odbyla ) %} Przeprowadzona {% else %} Oczekująca {% endif %}</a></li>
+        <li><a href="{{url_for('views.show_pacjent', id=c.id)}}"> #{{c.id}} </a> {{ c.godzina_rozpoczecia }} {{c.dentysta.imie}} {{c.dentysta.nazwisko}} {%if ( c.czy_sie_odbyla ) %} Przeprowadzona {% else %} Oczekująca {% endif %}</li>
     {% endfor %}
     </ul>
 	<a href="{{url_for('views.new')}}">Dodaj nową wizytę</a>

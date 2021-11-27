@@ -2,16 +2,13 @@
 {% block content %}
     <h1>Dodaj nową wizytę</h1>
     <form action="{{url_for('views.index_pacjent')}}" method="POST">
-    <label for="date">Data</label>
-    <input name="date" id="date" required><br>
-    
-    <label for="hour">Godzina</label>
-    <input name="hour" id="hour" required><br>
+    <label for="datetime">Data i godzina: </label>
+    <input type="datetime-local" name="datetime" id="datetime" value="2021-11-29T12:00" min="2021-11-29T12:00" max="2022-11-29T12:00" required><br>   
     <p>
     Pacjent: {{p.imie}} {{p.nazwisko}}
     </p>
-    <label for="dentist">Dentysta</label>
-    <input name="dentist" id="dentist"><br>
+    <!--label for="dentist">Dentysta</label>
+    <input name="dentist" id="dentist"><br-->
     
     <label for="usluga">Usługa</label>
     <input name="usluga" id="usluga" required><br>
