@@ -5,6 +5,7 @@ class Wizyta(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.Date, nullable=False)
+    #UWAGA daty chyba nie będzie, zostawimy tylko godzina_rozp i godzina_zak
     godzina_rozpoczecia = db.Column(db.DateTime, nullable=False)
     godzina_zakonczenia = db.Column(db.DateTime, nullable=False)
     czy_sie_odbyla = db.Column(db.Boolean, nullable=False)
