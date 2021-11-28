@@ -69,20 +69,20 @@ db.session.add(Usluga(nazwa='Implant', opis='Implant - szt.', cena=1900))
 db.session.add(Usluga(nazwa='RTG', opis='RTG jamy ustnej', cena=10))
 
 #-------------PRACOWNICY-------------
-db.session.add(Pracownik(imie='Anna', pesel=98, stanowisko='dentysta', data_zatrudnienia='10/10/2014', data_zwolnienia= None , login='ad@example.com', haslo=generate_password_hash( 'xxx')))
-db.session.add(Pracownik(imie='Hanna', pesel=80, stanowisko='chirurg', data_zatrudnienia='06/17/2014', data_zwolnienia= None , login='hd@example.com', haslo=generate_password_hash( 'xxx')))
-db.session.add(Pracownik(imie='Paweł', pesel=38, stanowisko='dentysta', data_zatrudnienia='10/10/2017', data_zwolnienia= None , login='pc@example.com', haslo=generate_password_hash( 'xxx')))
-db.session.add(Pracownik(imie='Robert', pesel=48, stanowisko='chirurg', data_zatrudnienia='03/12/2018', data_zwolnienia= None , login='rg@example.com', haslo=generate_password_hash( 'xxx')))
+db.session.add(Pracownik(imie='Anna', nazwisko = 'Dobra', pesel=98, numer_telefonu = 33, stanowisko='dentysta', data_zatrudnienia='10/10/2014', data_zwolnienia= None , login='ad@example.com', haslo=generate_password_hash( 'xxx')))
+db.session.add(Pracownik(imie='Hanna', nazwisko = 'Drobna', pesel=80, numer_telefonu = 33, stanowisko='chirurg', data_zatrudnienia='06/17/2014', data_zwolnienia= None , login='hd@example.com', haslo=generate_password_hash( 'xxx')))
+db.session.add(Pracownik(imie='Paweł', nazwisko = 'Czul', pesel=38, numer_telefonu = 33, stanowisko='dentysta', data_zatrudnienia='10/10/2017', data_zwolnienia= None , login='pc@example.com', haslo=generate_password_hash( 'xxx')))
+db.session.add(Pracownik(imie='Robert', nazwisko = 'Górski', pesel=48, numer_telefonu = 33, stanowisko='chirurg', data_zatrudnienia='03/12/2018', data_zwolnienia= None , login='rg@example.com', haslo=generate_password_hash( 'xxx')))
 
 #------------Próby-----TMP--------------
 
-db.session.add(Pacjent(imie='Anna', pesel=78, data_rejestracji='10/10/2014', login='anna@example.com', haslo=generate_password_hash('xxx')))
-db.session.add(Pacjent(imie='Pawel', pesel=89, data_rejestracji='05/02/2019', login='pawel@example.com', haslo=generate_password_hash('xxx')))
-db.session.add(Pacjent(imie='Karolina', pesel=97, data_rejestracji='10/11/2017', login='karolina@example.com', haslo=generate_password_hash('xxx')))
+db.session.add(Pacjent(imie='Anna', nazwisko = 'Bąk', pesel=78, numer_telefonu = 33, data_rejestracji='10/10/2014', login='anna@example.com', haslo=generate_password_hash('xxx')))
+db.session.add(Pacjent(imie='Paweł', nazwisko = 'Kaczmakiewicz', pesel=89, numer_telefonu = 33, data_rejestracji='05/02/2019', login='pawel@example.com', haslo=generate_password_hash('xxx')))
+db.session.add(Pacjent(imie='Karolina', nazwisko = 'Rudas', pesel=97, numer_telefonu = 33, data_rejestracji='10/11/2017', login='karolina@example.com', haslo=generate_password_hash('xxx')))
 db.session.commit()
 
 #db.session.add(Pracownik(imie='Anna', pesel=98, stanowisko='dentysta', data_zatrudnienia='10/10/2014', data_zwolnienia= None , login='bd@example.com', haslo=generate_password_hash( 'xxx')))
-db.session.add(Wizyta(data='1988-01-17', godzina_rozpoczecia=datetime(2015, 6, 5, 8, 10, 10, 10),godzina_zakonczenia=datetime(2015, 6, 5, 8, 10, 10, 10), czy_sie_odbyla=0, dentysta=1, pacjent=1))
+db.session.add(Wizyta( godzina_rozpoczecia=datetime(2015, 6, 5, 8, 10, 10, 10),godzina_zakonczenia=datetime(2015, 6, 5, 8, 10, 10, 10), czy_sie_odbyla=0, dentysta=1, pacjent=1))
 db.session.commit()
 
 

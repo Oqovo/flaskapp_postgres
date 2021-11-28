@@ -59,7 +59,6 @@ def register():
         name = request.form["name"]
         surname = request.form["surname"]
         pesel = request.form["pesel"]
-       # birthdate = request.form["birthdate"]
         phone = request.form["phone"]
         username = request.form["username"]
         password = request.form["password"]
@@ -81,7 +80,7 @@ def register():
 
         if error is None:
             try:
-                db.session.add(Pacjent(imie=name, pesel=pesel, data_rejestracji=date.today(), login=username, haslo=generate_password_hash(password)))
+                db.session.add(Pacjent(imie=name, nazwisko = surname, pesel=pesel, numer_telefonu = phone, data_rejestracji=date.today(), login=username, haslo=generate_password_hash(password)))
                 #    db.session.execute(
                 #        "INSERT INTO Pacjent (username, password) VALUES (?, ?)",
                 #        (username, generate_password_hash(password)),
