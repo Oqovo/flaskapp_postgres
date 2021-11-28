@@ -21,42 +21,7 @@ from . import db
 
 views = Blueprint('views', __name__)
 
-#-----------------------------------------TUTAJ EXAMPLE
-# widoki i html z jedynkamy są nieaktualne
-
-@views.route('/pacjenci/<int:id>', methods=["GET", "PATCH", "DELETE"])
-def show1(id):
-    # find a toy based on its id
-    found_pacjent = db.session.query(Pacjent).filter(Pacjent.id == id).first()
-    #https://stackoverflow.com/questions/6750017/how-to-query-database-by-id-using-sqlalchemy
-
-    # Refactor the code above using a list comprehension!
-    print(found_pacjent)
-    if request.method == b"PATCH":
-
-        db.session.query(Pacjent).filter(Pacjent.id == id).update({'imie' : request.form['imie']})
-        db.session.commit()
-        return redirect(url_for('views.index'))
-        
-    if request.method == b"DELETE":
-        #found_car.delete(synchronize_session=False)
-        db.session.delete(found_pacjent)
-        db.session.commit()
-        return redirect(url_for('views.index'))
-    return render_template('show1.html', c=found_pacjent)
-  
-@views.route('/pacjenci/<int:id>/edit')
-def edit1(id):
-    # Refactored using a list comprehension!
-    found_pacjent = db.session.query(Pacjent).filter(Pacjent.id == id).first()
-    # Refactor the code above to use a generator so that we do not need to do [0]!
-    return render_template('edit1.html', c=found_pacjent)
-   
-@views.route('/pacjenci/new')
-def new1():
-    return render_template('new1.html')   
-    
-#---------------------------------------------------------------TUTAJ DOPIERO GIT :
+#---------------------------------------------------------------TUTAJ GIT :
     
 @views.route('/', methods=['GET', 'POST'])
 def index():
@@ -86,11 +51,11 @@ def index_pacjent():
         print(godzina_rozpoczecia)
         print(uslugi)
         #datetime(2015, 6, 5, 8, 10, 10),
-        db.session.add(Wizyta(data='1988-01-17', godzina_rozpoczecia=godzina_rozpoczecia, godzina_zakonczenia=godzina_rozpoczecia + timedelta(minutes=30),  czy_sie_odbyla=0, dentysta=1, pacjent=pacjent.id))
+        db.session.add(Wizyta( godzina_rozpoczecia=godzina_rozpoczecia, godzina_zakonczenia=godzina_rozpoczecia + timedelta(minutes=30),  czy_sie_odbyla=0, dentysta=1, pacjent=pacjent.id))
 
 
-        for u in uslugi:
-            db.session.add(Usluga_Wizyta(usluga_id= u,wizyta_id= db.session.query(Wizyta).all().last()))
+        for u in uslugi:            
+            db.session.add(Usluga_Wizyta(usluga_id= u,wizyta_id= db.session.query(Wizyta).order_by(Wizyta.id.desc()).first().id))
 
         db.session.commit()
         return redirect(url_for('views.index_pacjent'))
@@ -124,7 +89,8 @@ def show_pracownik(id):
     wizyta = db.session.query(Wizyta).filter(Wizyta.id == id ).first()
 
     if request.method == b"PATCH":
-        db.session.query(Wizyta).filter(Wizyta.id == id).update({'data' : request.form['data']})
+        #TO DO
+       # db.session.query(Wizyta).filter(Wizyta.id == id).update({'data' : request.form['data']})
         db.session.commit()
         return redirect(url_for('views.index_pracownik'))
 
