@@ -6,9 +6,9 @@
 {% block content %}
 	<h1>Lista wizyt</h1>
     <ul>
-        Numer wizyty    Data i godzina      Dentysta    Status
+        Numer wizyty    Data i godzina    Status
     {% for c in wizyty %}
-        <li><a href="{{url_for('views.show_pracownik', id=c.id)}}">#{{c.id}} </a> {{ c.godzina_rozpoczecia }} {{c.pacjent.imie}} {{c.pacjent.nazwisko}} {%if ( c.czy_sie_odbyla ) %} Przeprowadzona {% else %} Oczekująca {% endif %}</li>
+        <li><a href="{{url_for('views.show_pracownik', id=c.id)}}">#{{c.id}} </a> {{ c.godzina_rozpoczecia }}={%if ( c.czy_sie_odbyla ) %} Przeprowadzona {% else %} Oczekująca {% endif %}</li>
     {% endfor %}
     </ul>
 {% endblock %}

@@ -3,7 +3,10 @@
     <h1>Wizyta #{{c.id}}</h1>
     <p>
         Data: <b>{{c.data}}</b><br>
-        Godzina: <b>{{c.godzina_rozpoczecia}}</b>
+        Godzina: <b>{{c.godzina_rozpoczecia}}</b><br>
+        Dentysta: <b>{{d.imie}} {{d.nazwisko}}</b><br>
+        #TO DO
+        Usługi: <b>{{d.imie}} {{u.nazwisko}}</b>
     </p>
     
     <form action="{{url_for('views.show_pacjent', id=c.id)}}?_method=DELETE" method="POST">

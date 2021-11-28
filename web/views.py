@@ -25,15 +25,8 @@ views = Blueprint('views', __name__)
     
 @views.route('/', methods=['GET', 'POST'])
 def index():
-  # for c in Car.query.all():   
-  # if request.method == "POST":
-   #     pacjent_pesel = random.randint(100,200)
-    #    
-     #   db.session.add(Pacjent(imie=request.form['imie'], pesel = pacjent_pesel, data_rejestracji = '04/06/2028'))
-      #  db.session.commit()
-       # return redirect(url_for('views.index'))  
 
-    return render_template('index.html')#json.dumps([c.serialize() for c in db.session.query(Car).all()], indent=2)
+    return render_template('index.html')
 #https://pythonbasics.org/flask-rest-api/
 
 @views.route('/wizyty_pacj', methods=['GET', 'POST'])
@@ -42,24 +35,20 @@ def index_pacjent():
     pacjent = db.session.query(Pacjent).filter(Pacjent.id == user ).first()
     print("****", pacjent)
 
-    if request.method == "POST":  
-        #TO DO     
+    if request.method == "POST":    
         godzina_rozpoczecia = datetime.strptime(request.form["datetime"], '%Y-%m-%dT%H:%M')
-      #  usluga = request.form["usluga"]
         uslugi = request.form.getlist("check")
         
-        print(godzina_rozpoczecia)
-        print(uslugi)
-        #datetime(2015, 6, 5, 8, 10, 10),
+        #print(godzina_rozpoczecia)
+        #print(uslugi)
+       
         db.session.add(Wizyta( godzina_rozpoczecia=godzina_rozpoczecia, godzina_zakonczenia=godzina_rozpoczecia + timedelta(minutes=30),  czy_sie_odbyla=0, dentysta=1, pacjent=pacjent.id))
-
 
         for u in uslugi:            
             db.session.add(Usluga_Wizyta(usluga_id= u,wizyta_id= db.session.query(Wizyta).order_by(Wizyta.id.desc()).first().id))
 
         db.session.commit()
         return redirect(url_for('views.index_pacjent'))
-
 
     return render_template('index_pacjent.html', wizyty = db.session.query(Wizyta).filter(Wizyta.pacjent == pacjent.id ).all())
 
@@ -81,6 +70,7 @@ def show_pacjent(id):
         db.session.commit()
         return redirect(url_for('views.index_pacjent'))
 
+#TO DO Dodac uslugi i lekarza
     return render_template('show_pacjent.html', c = wizyta)
 
 @views.route('/wizyty_prac/<int:id>', methods=['GET', 'PATCH'])
@@ -94,6 +84,7 @@ def show_pracownik(id):
         db.session.commit()
         return redirect(url_for('views.index_pracownik'))
 
+#TO DO Dodac pacjenta i uslugi
     return render_template('show_pracownik.html', c = wizyta)
 
 @views.route('/wizyty_pacj/new')

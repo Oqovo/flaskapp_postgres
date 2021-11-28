@@ -4,6 +4,9 @@
     <p>
         Data: <b>{{c.data}}</b><br>
         Godzina: <b>{{c.godzina_rozpoczecia}}</b>
+        Pacjent 
+        #TO DO
+        Usługi: <b>{{d.imie}} {{u.nazwisko}}</b>
     </p>
     <br>
     <form action="{{url_for('views.show_pracownik', id=c.id)}}?_method=PATCH" method="POST">
