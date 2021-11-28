@@ -8,17 +8,17 @@
 </head>
 <nav>
     <h1><a href="{{ url_for('views.index') }}">Pingwinek</a></h1>
-    <ul>
-      <li><a href="{{ url_for('views.index') }}">O nas</a>
-      <li><a href="{{ url_for('views.index') }}">Oferta</a>
-      <li><a href="{{ url_for('views.index') }}">Cennik</a>
+    
+      <a href="{{ url_for('views.index') }}">O nas</a>
+      <a href="{{ url_for('views.index') }}">Oferta</a>
+      <a href="{{ url_for('views.index') }}">Cennik</a>
         
       {% if g.user %}
-        <li><a href="{{ url_for('views.account') }}">Moje konto ({{ g.user.imie }} {{ g.user.nazwisko }})</a>
+        <a href="{{ url_for('views.account') }}">Moje konto ({{ g.user.imie }} {{ g.user.nazwisko }})</a>
       {% else %}
-        <li><a href="{{ url_for('auth.login') }}">Logowanie</a>
+        <a href="{{ url_for('auth.login') }}">Logowanie</a>
       {% endif %}
-    </ul>
+    
   </nav>
 <body>
     {% block content %}

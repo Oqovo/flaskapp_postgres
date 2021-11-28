@@ -39,10 +39,10 @@ def index_pacjent():
         godzina_rozpoczecia = datetime.strptime(request.form["datetime"], '%Y-%m-%dT%H:%M')
         uslugi = request.form.getlist("check")
         
-        #print(godzina_rozpoczecia)
-        #print(uslugi)
+        dentysta = db.session.query(Pracownik.id).count()
+        dentysta_id = random.randint(0, dentysta)
        
-        db.session.add(Wizyta( godzina_rozpoczecia=godzina_rozpoczecia, godzina_zakonczenia=godzina_rozpoczecia + timedelta(minutes=30),  czy_sie_odbyla=0, dentysta=1, pacjent=pacjent.id))
+        db.session.add(Wizyta( godzina_rozpoczecia=godzina_rozpoczecia, godzina_zakonczenia=godzina_rozpoczecia + timedelta(minutes=30),  czy_sie_odbyla=0, dentysta=dentysta_id, pacjent=pacjent.id))
 
         for u in uslugi:            
             db.session.add(Usluga_Wizyta(usluga_id= u,wizyta_id= db.session.query(Wizyta).order_by(Wizyta.id.desc()).first().id))
@@ -63,15 +63,22 @@ def index_pracownik():
 def show_pacjent(id):
 
     wizyta = db.session.query(Wizyta).filter(Wizyta.id == id).first()
+    uslugi_wizyty = db.session.query(Usluga_Wizyta).filter(Usluga_Wizyta.wizyta_id == wizyta.id ).all()
 
     if request.method == b"DELETE":
-        #found_car.delete(synchronize_session=False)
+
+        for uw in uslugi_wizyty:
+            db.session.query(Usluga_Wizyta).filter(Usluga_Wizyta.id == uw.id).delete()
+
         db.session.delete(wizyta)
         db.session.commit()
         return redirect(url_for('views.index_pacjent'))
+   
+    uslugi = db.session.query(Usluga).filter(Usluga.id == None)
+    for uw in uslugi_wizyty:
+        uslugi = uslugi.union(db.session.query(Usluga).filter(Usluga.id == uw.usluga_id))
 
-#TO DO Dodac uslugi i lekarza
-    return render_template('show_pacjent.html', c = wizyta)
+    return render_template('show_pacjent.html', w = wizyta, d = db.session.query(Pracownik).filter(Pracownik.id == wizyta.dentysta).first(), uslugi = uslugi.all())
 
 @views.route('/wizyty_prac/<int:id>', methods=['GET', 'PATCH'])
 def show_pracownik(id):
@@ -79,13 +86,22 @@ def show_pracownik(id):
     wizyta = db.session.query(Wizyta).filter(Wizyta.id == id ).first()
 
     if request.method == b"PATCH":
-        #TO DO
-       # db.session.query(Wizyta).filter(Wizyta.id == id).update({'data' : request.form['data']})
+        
+       # status = request.form["check"]
+        if request.form["datetime"] != '':
+            godzina_rozpoczecia = datetime.strptime(request.form["datetime"], '%Y-%m-%dT%H:%M')
+            db.session.query(Wizyta).filter(Wizyta.id == id).update({'godzina_rozpoczecia' : godzina_rozpoczecia, 'godzina_zakonczenia' : godzina_rozpoczecia + timedelta(minutes=30)})
+        #else:
+        #    db.session.query(Wizyta).filter(Wizyta.id == id).update({'czy_sie_odbyla' : bool( not status)})
         db.session.commit()
         return redirect(url_for('views.index_pracownik'))
 
-#TO DO Dodac pacjenta i uslugi
-    return render_template('show_pracownik.html', c = wizyta)
+    uslugi_wizyty = db.session.query(Usluga_Wizyta).filter(Usluga_Wizyta.wizyta_id == wizyta.id ).all()
+    uslugi = db.session.query(Usluga).filter(Usluga.id == None)
+    for uw in uslugi_wizyty:
+        uslugi = uslugi.union(db.session.query(Usluga).filter(Usluga.id == uw.usluga_id))
+
+    return render_template('show_pracownik.html', w = wizyta, p = db.session.query(Pacjent).filter(Pacjent.id == wizyta.pacjent).first(), uslugi = uslugi.all())
 
 @views.route('/wizyty_pacj/new')
 def new():
