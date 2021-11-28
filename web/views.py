@@ -7,6 +7,9 @@ import random
 from flask_modus import Modus
 from werkzeug.security import generate_password_hash
 from datetime import datetime
+from datetime import timedelta
+# import datetime
+
 
 from .models.pacjent import Pacjent
 from .models.pracownik import Pracownik
@@ -19,7 +22,7 @@ from . import db
 views = Blueprint('views', __name__)
 
 #-----------------------------------------TUTAJ EXAMPLE
-# widoki i html z 1 są nieaktualne
+# widoki i html z jedynkamy są nieaktualne
 
 @views.route('/pacjenci/<int:id>', methods=["GET", "PATCH", "DELETE"])
 def show1(id):
@@ -76,12 +79,18 @@ def index_pacjent():
 
     if request.method == "POST":  
         #TO DO     
-        godzina_rozpoczecia = request.form["datetime"]
-        usluga = request.form["usluga"]
+        godzina_rozpoczecia = datetime.strptime(request.form["datetime"], '%Y-%m-%dT%H:%M')
+      #  usluga = request.form["usluga"]
+        uslugi = request.form.getlist("check")
         
-        print(godzina_rozpoczecia, usluga)
+        print(godzina_rozpoczecia)
+        print(uslugi)
         #datetime(2015, 6, 5, 8, 10, 10),
-        db.session.add(Wizyta(data='1988-01-17', godzina_rozpoczecia=godzina_rozpoczecia, godzina_zakonczenia=godzina_rozpoczecia + datetime.timedelta(minutes=30),  czy_sie_odbyla=0, dentysta=1, pacjent=pacjent.id))
+        db.session.add(Wizyta(data='1988-01-17', godzina_rozpoczecia=godzina_rozpoczecia, godzina_zakonczenia=godzina_rozpoczecia + timedelta(minutes=30),  czy_sie_odbyla=0, dentysta=1, pacjent=pacjent.id))
+
+
+        for u in uslugi:
+            db.session.add(Usluga_Wizyta(usluga_id= u,wizyta_id= db.session.query(Wizyta).all().last()))
 
         db.session.commit()
         return redirect(url_for('views.index_pacjent'))
@@ -125,14 +134,13 @@ def show_pracownik(id):
 def new():
     user = session.get("user_id")
 
-    return render_template('new.html', p =  db.session.query(Pacjent).filter(Pacjent.id == user).first())   
+    return render_template('new.html', p =  db.session.query(Pacjent).filter(Pacjent.id == user).first(), uslugi = db.session.query(Usluga).all())   
 
 
-#TO DO - dodać rozróżnienie pacjenta i pracownika, np. za pomocą zmiennej u
 @views.route('/account')
 def account():
     tablename = session.get("tablename")
-    if tablename == "pacjenci":
+    if tablename == 'pacjenci':
         user =  db.session.query(Pacjent).filter(Pacjent.id == session.get("user_id")).first()
     else:
         user =  db.session.query(Pracownik).filter(Pracownik.id == session.get("user_id")).first()

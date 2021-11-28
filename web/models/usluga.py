@@ -5,8 +5,8 @@ class Usluga(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     nazwa= db.Column(db.String(128), unique=True, nullable=False)
-    opis = db.Column(db.String(128), unique=True, nullable=False)
-    cena = db.Column(db.Integer, unique=True, nullable=False)
+    opis = db.Column(db.String(128), nullable=False)
+    cena = db.Column(db.Integer, nullable=False)
     
     uslugi_wizyty = db.relationship("Usluga_Wizyta")
     

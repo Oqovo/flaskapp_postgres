@@ -9,9 +9,14 @@
     </p>
     <!--label for="dentist">Dentysta</label>
     <input name="dentist" id="dentist"><br-->
-    
-    <label for="usluga">Usługa</label>
-    <input name="usluga" id="usluga" required><br>
+    <div id="list1" class="dropdown-check-list" tabindex="100">
+        <span class="anchor">Wybierz usługę</span>
+        <ul class="items">         
+          {% for u in uslugi %}
+            <li><input type="checkbox" name='check' value="{{u.id}}"/>{{u.nazwa}} Koszt: {{u.cena}} </li>
+          {% endfor %}
+        </ul>
+      </div>
     <input type="submit" value="Dodaj">
     </form>
 {% endblock %}
