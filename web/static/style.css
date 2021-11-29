@@ -1,5 +1,5 @@
 li {
-  font-size: 12px;
+  font-size: 16px;
 }
 
 h1,
@@ -9,15 +9,16 @@ p {
 
 .maintitle {
   text-align: left;
-  color: #63066b;
+  color: #ce127f;
 }
 
-form {
+.forms {
   text-align: center;
 }
 
 .navig {
   text-align: right;
+  font-size: 24px;
   right: 0;
 }
 
@@ -39,8 +40,14 @@ body::after {
   width: 50%;
 }
 
+.centrum {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .column {
-  float: center;
+  float: left;
+  text-align: center;
   width: 50%;
 }
 

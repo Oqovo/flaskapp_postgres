@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Wizyta #{{w.id}}</h1>
+    <div class="forms">
     <p>
-        Data: <b>{{w.data}}</b><br>
-        Godzina: <b>{{w.godzina_rozpoczecia}}</b><br>
-        Dentysta: <b>{{d.imie}} {{d.nazwisko}}</b><br>
-        Usługi: 
+        <b>Data:</b> {{w.data}}<br>
+        <b>Godzina:</b> {{w.godzina_rozpoczecia}}<br>
+        <b>Dentysta:</b> {{d.imie}} {{d.nazwisko}}<br>
+        <b>Usługi:</b> <br>
         {% for u in uslugi %}
-        <li><b>{{u.nazwa}} Cena: {{u.cena}}</b></li>
+        {{u.nazwa}} Cena: {{u.cena}}<br>
         {% endfor %}
         
     </p>
@@ -16,5 +17,6 @@
         <input type="submit" value="Usuń">
     </form>
     <br>
-    <a href="{{url_for('views.index_pacjent')}}">Zobacz wszystkie wizyty</a>
+    <button><a href="{{url_for('views.index_pacjent')}}">Zobacz wszystkie wizyty</a></button>
+    </div>
 {% endblock %}

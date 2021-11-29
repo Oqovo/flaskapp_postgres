@@ -5,6 +5,7 @@
 
 {% block content %}
   <h1>Moje konto</h1>
+  <div class="forms">
   <form method="post">
     <label for="name">Imię*</label>
     <input name="name" id="name" value="{{user.imie}}" required><br>
@@ -18,14 +19,15 @@
     <input name="username" id="username" value="{{user.login}}" required><br>
     <label for="password">Hasło*</label>
     <input type="password" name="password" id="password"  value="{{user.haslo}}"required><br>
-    <input type="submit" value="Edytuj">
+    <button><input type="submit" value="Edytuj"></button>
   </form>
 
   {% if (tablename == 'pacjenci') %}
-  <a href="{{ url_for('views.index_pacjent') }}">Zobacz wszystkie wizyty</a><br>
+  <button><a href="{{ url_for('views.index_pacjent') }}">Zobacz wszystkie wizyty</a></button><br>
   {% else %}
-  <a href="{{ url_for('views.index_pracownik') }}">Zobacz wszystkie wizyty</a><br>
+  <button><a href="{{ url_for('views.index_pracownik') }}">Zobacz wszystkie wizyty</a></button><br>
   {% endif %}
 
-  <a href="{{ url_for('auth.logout') }}">Wyloguj</a>
+  <button><a href="{{ url_for('auth.logout') }}">Wyloguj</a></button>
+  </div>
 {% endblock %}

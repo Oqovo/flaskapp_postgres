@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Dodaj nową wizytę</h1>
+    <div class="forms">
     <form action="{{url_for('views.index_pacjent')}}" method="POST">
     <label for="datetime">Data i godzina: </label>
     <input type="datetime-local" name="datetime" id="datetime" value="2021-11-29T12:00" min="2021-11-29T12:00" max="2022-11-29T12:00" required><br>   
@@ -11,12 +12,13 @@
     <input name="dentist" id="dentist"><br-->
     <div id="list1" class="dropdown-check-list" tabindex="100">
         <span class="anchor">Wybierz usługę</span>
-        <ul class="items">         
+           <br>      
           {% for u in uslugi %}
-            <li><input type="checkbox" name='check' value="{{u.id}}"/>{{u.nazwa}} Koszt: {{u.cena}} </li>
+            <input type="checkbox" name='check' value="{{u.id}}"/>{{u.nazwa}} Koszt: {{u.cena}} <br>
           {% endfor %}
-        </ul>
+        
       </div>
-    <input type="submit" value="Dodaj">
+    <button><input type="submit" value="Dodaj"></button>
     </form>
+    </div>
 {% endblock %}

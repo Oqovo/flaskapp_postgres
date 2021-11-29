@@ -40,7 +40,7 @@ def index_pacjent():
         uslugi = request.form.getlist("check")
         
         dentysta = db.session.query(Pracownik.id).count()
-        dentysta_id = random.randint(0, dentysta)
+        dentysta_id = random.randint(1, dentysta)
        
         db.session.add(Wizyta( godzina_rozpoczecia=godzina_rozpoczecia, godzina_zakonczenia=godzina_rozpoczecia + timedelta(minutes=30),  czy_sie_odbyla=0, dentysta=dentysta_id, pacjent=pacjent.id))
 

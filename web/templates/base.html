@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"><!--../static/style.css">-->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"><!--../static/style.css">-->
 <head>
     <title>Pingwinek - {% block title %}{% endblock %}</title>
     <meta charset="UTF-8">
@@ -10,14 +10,14 @@
 <nav>
     <h1 class="maintitle">Klinika dentystyczna<br><a href="{{ url_for('views.index') }}">Pingwinek</a></h1>
     <div class="navig">
-      <a href="{{ url_for('views.index') }}">O nas</a>
-      <a href="{{ url_for('views.index') }}">Oferta</a>
-      <a href="{{ url_for('views.index') }}">Cennik</a>
+      <button><a href="{{ url_for('views.index') }}">O nas </a></button>
+    <button><a href="{{ url_for('views.index') }}">Oferta </a></button>
+  <button><a href="{{ url_for('views.index') }}">Cennik </a></button>
         
       {% if g.user %}
-        <a href="{{ url_for('views.account') }}">Moje konto ({{ g.user.imie }} {{ g.user.nazwisko }})</a>
+    <button><a href="{{ url_for('views.account') }}">Moje konto ({{ g.user.imie }} {{ g.user.nazwisko }})</a></button>
       {% else %}
-        <a href="{{ url_for('auth.login') }}">Logowanie</a>
+    <button><a href="{{ url_for('auth.login') }}">Logowanie</a></button>
       {% endif %}
     </div>
   </nav>
