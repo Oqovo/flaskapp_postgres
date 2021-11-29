@@ -1,10 +1,24 @@
 li {
-  font-size: 25px;
+  font-size: 12px;
 }
 
 h1,
 p {
   text-align: center;
+}
+
+.maintitle {
+  text-align: left;
+  color: #63066b;
+}
+
+form {
+  text-align: center;
+}
+
+.navig {
+  text-align: right;
+  right: 0;
 }
 
 body::after {
@@ -26,7 +40,7 @@ body::after {
 }
 
 .column {
-  float: left;
+  float: center;
   width: 50%;
 }
 

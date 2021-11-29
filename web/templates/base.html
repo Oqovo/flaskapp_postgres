@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"><!--../static/style.css">-->
 <head>
     <title>Pingwinek - {% block title %}{% endblock %}</title>
     <meta charset="UTF-8">
     <title>CRUD Time</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	
 </head>
 <nav>
-    <h1><a href="{{ url_for('views.index') }}">Pingwinek</a></h1>
-    
+    <h1 class="maintitle">Klinika dentystyczna<br><a href="{{ url_for('views.index') }}">Pingwinek</a></h1>
+    <div class="navig">
       <a href="{{ url_for('views.index') }}">O nas</a>
       <a href="{{ url_for('views.index') }}">Oferta</a>
       <a href="{{ url_for('views.index') }}">Cennik</a>
@@ -18,7 +19,7 @@
       {% else %}
         <a href="{{ url_for('auth.login') }}">Logowanie</a>
       {% endif %}
-    
+    </div>
   </nav>
 <body>
     {% block content %}
