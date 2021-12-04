@@ -11,8 +11,11 @@ from datetime import timedelta
 # import datetime
 
 
-from .models.pacjent import Pacjent
-from .models.pracownik import Pracownik
+#from .models.pacjent import Pacjent
+#from .models.pracownik import Pracownik
+from .models.ludzie import Pacjent
+from .models.ludzie import Pracownik
+
 from .models.usluga_wizyta import Usluga_Wizyta
 from .models.usluga import Usluga
 from .models.wizyta import Wizyta
